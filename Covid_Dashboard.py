@@ -26,7 +26,7 @@ app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets)
 
 app.layout=html.Div(children=[
-    html.H1("Covid Pandemic - India's Perspective"),
+    html.H1("Covid Pandemic Dashboard - India's Perspective"),
     html.Div(children=[
         html.Div(children=[
             html.Div(children=[
