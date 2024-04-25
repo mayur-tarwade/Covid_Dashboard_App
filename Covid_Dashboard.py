@@ -15,16 +15,24 @@ external_stylesheets = [
         'crossorigin': 'anonymous'
     }
 ]
-
+# Datasets import:
 patients = pd.read_csv(r'C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\IndividualDetails.csv')
 total = patients.shape[0]
 active = patients[patients['current_status']== 'Hospitalized'].shape[0]
 recovered = patients[patients['current_status']== 'Recovered'].shape[0]
 deaths = patients[patients['current_status']== 'Deceased'].shape[0]
 
+options=[
+    {'label':'All', 'value':'All'},
+    {'label':'Hospitalized', 'value':'Hospitalized'},
+    {'label':'Recovered', 'value':'Recovered'},
+    {'label':'Deceased', 'value':'Deceased'}
+]
+
 app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets)
 
+# Application Layout:
 app.layout=html.Div(children=[
     html.H1("Covid Pandemic Dashboard - India's Perspective"),
     html.Div(children=[
@@ -68,14 +76,31 @@ app.layout=html.Div(children=[
     ], className='row'),
 
     html.Div(children=[
-        html.Div(children=[], className='col-md-12'),
+        html.Div(children=[
+            html.Div(children=[
+                html.Div(children=[
+                    html.H3('Current Status of State Analysis',className='text-light', style={'text-align':'center'}),
+                    dcc.Dropdown(id='picker', options=options, value='All'),
+                    dcc.Graph(id='bar')
+                ], className='card-body')
+            ], className='card bg-info')
+        ], className='col-md-12'),
     ], className='row'),
-
 ], className='container')
 
 
-
-
+@app.callback(Output('bar','figure'),[Input('picker','value')])
+def update_graph(type):
+    if type=='All':
+        pbar = patients['detected_state'].value_counts().reset_index()
+        return {'data':[go.Bar(x=pbar['detected_state'], y=pbar['count'])],
+            'layout':go.Layout(title='State Total Count')}
+    else:
+        npat = patients[patients['current_status'] == type]
+        pbar = npat['detected_state'].value_counts().reset_index()
+        return {'data':[go.Bar(x=pbar['detected_state'], y=pbar['count'])],
+                'layout':go.Layout(title=type)}
 
 if __name__ == '__main__':
     app.run_server(debug=True)
+
