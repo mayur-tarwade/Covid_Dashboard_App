@@ -24,8 +24,8 @@ deaths = patients[patients['current_status']== 'Deceased'].shape[0]
 
 D_patients = patients[patients['nationality'] == 'India']
 
-dbd = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\covid_19_india.csv")
-age = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\AgeGroupDetails.csv")
+dbd = pd.read_csv('Datasets\covid_19_india.csv')
+age = pd.read_csv('Datasets\AgeGroupDetails.csv')
 
 options=[
     {'label':'All', 'value':'All'},
