@@ -16,7 +16,7 @@ external_stylesheets = [
     }
 ]
 # Datasets import:
-patients = pd.read_csv(r'C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\IndividualDetails.csv')
+patients = pd.read_csv(https://github.com/mayur-tarwade/Covid_Dashboard_App/blob/main/Datasets/IndividualDetails.csv)
 total = patients.shape[0]
 active = patients[patients['current_status']== 'Hospitalized'].shape[0]
 recovered = patients[patients['current_status']== 'Recovered'].shape[0]
