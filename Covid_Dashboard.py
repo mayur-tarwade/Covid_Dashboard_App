@@ -5,6 +5,7 @@ import dash
 from dash import html
 from dash import dcc
 from dash import Input,Output
+import streamlit as st
 
 # external CSS stylesheets
 external_stylesheets = [
@@ -36,6 +37,7 @@ options=[
 
 app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets)
+Server = app.server
 
 # Application Layout:
 app.layout=html.Div(children=[
