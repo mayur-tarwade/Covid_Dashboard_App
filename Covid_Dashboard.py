@@ -5,6 +5,7 @@ import dash
 from dash import html
 from dash import dcc
 from dash import Input,Output
+import streamlit as st
 
 # external CSS stylesheets
 external_stylesheets = [
