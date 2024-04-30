@@ -16,7 +16,7 @@ external_stylesheets = [
     }
 ]
 # Datasets import:
-patients = pd.read_csv(Datasets/IndividualDetails.csv)
+patients = pd.read_csv('IndividualDetails.csv')
 total = patients.shape[0]
 active = patients[patients['current_status']== 'Hospitalized'].shape[0]
 recovered = patients[patients['current_status']== 'Recovered'].shape[0]
