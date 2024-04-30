@@ -129,5 +129,5 @@ def update_graph(type):
                 'layout':go.Layout(title=type)}
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
 
