@@ -1,11 +1,13 @@
 body{
-    background-color:#2C3E50;
+    background-color:#00203FFF;
 }
 H1{
-    color:#82E0AA ;
+    color:#ADEFD1FF;
     text-align:center;
-    font-family:'Times New Roman';
+    font-family:'Calibri';
     margin:10px;
     padding:5px;
     font-size:50px
 }
+
+

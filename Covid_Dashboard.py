@@ -22,6 +22,11 @@ active = patients[patients['current_status']== 'Hospitalized'].shape[0]
 recovered = patients[patients['current_status']== 'Recovered'].shape[0]
 deaths = patients[patients['current_status']== 'Deceased'].shape[0]
 
+D_patients = patients[patients['nationality'] == 'India']
+
+dbd = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\covid_19_india.csv")
+age = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\AgeGroupDetails.csv")
+
 options=[
     {'label':'All', 'value':'All'},
     {'label':'Hospitalized', 'value':'Hospitalized'},
@@ -71,15 +76,37 @@ app.layout=html.Div(children=[
     ], className='row'),
 
     html.Div(children=[
-        html.Div(children=[], className='col-md-6'),
-        html.Div(children=[], className='col-md-6'),
+        html.Div(children=[
+            html.Div([
+                html.Div([
+                    html.H5('Scatter Plot',className='text-light',style={'text-align':'center'}),
+                    dcc.Graph(id='Scatter Plot',
+                              figure={'data':[go.Scatter(x=dbd['Date'],
+                                                         y=dbd['Confirmed'],
+                                                         mode='markers',text=dbd['State/UnionTerritory'])],
+                                      'layout':go.Layout(title='Day by Day Analysis',
+                                                         xaxis={'title':'Date'},
+                                                         yaxis={'title':'No. Of Patients'})})
+                ], className='card-body')
+            ], className='card bg-info')
+        ], className='col-md-6'),
+        html.Div(children=[
+            html.Div([
+                html.Div([
+                    html.H5('Pie Chart',className='text-light',style={'text-align':'center'}),
+                    dcc.Graph(id='Pie Chart',
+                              figure={'data':[go.Pie(labels=age['AgeGroup'],values=age['TotalCases'])],
+                                      'layout':go.Layout(title='Age Contribution')})
+                ], className='card-body')
+            ], className='card bg-info')
+        ], className='col-md-6'),
     ], className='row'),
 
     html.Div(children=[
         html.Div(children=[
             html.Div(children=[
                 html.Div(children=[
-                    html.H3('Current Status of State Analysis',className='text-light', style={'text-align':'center'}),
+                    html.H4('Current Status of State Analysis',className='text-light', style={'text-align':'center'}),
                     dcc.Dropdown(id='picker', options=options, value='All'),
                     dcc.Graph(id='bar')
                 ], className='card-body')
@@ -88,13 +115,13 @@ app.layout=html.Div(children=[
     ], className='row'),
 ], className='container')
 
-
+# @app.callback- decorator
 @app.callback(Output('bar','figure'),[Input('picker','value')])
 def update_graph(type):
     if type=='All':
         pbar = patients['detected_state'].value_counts().reset_index()
         return {'data':[go.Bar(x=pbar['detected_state'], y=pbar['count'])],
-            'layout':go.Layout(title='State Total Count')}
+                'layout':go.Layout(title='State Total Count')}
     else:
         npat = patients[patients['current_status'] == type]
         pbar = npat['detected_state'].value_counts().reset_index()
