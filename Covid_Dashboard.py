@@ -40,8 +40,6 @@ app = dash.Dash(__name__,
 
 Server = app.server
 
-server = app.server
-
 # Application Layout:
 app.layout=html.Div(children=[
     html.H1("Covid Pandemic Dashboard - India's Perspective"),
