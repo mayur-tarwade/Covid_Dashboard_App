@@ -40,8 +40,6 @@ app = dash.Dash(__name__,
 
 Server = app.server
 
-server = app.server
-
 # Application Layout:
 app.layout=html.Div(children=[
     html.H1("Covid Pandemic Dashboard - India's Perspective"),
@@ -134,5 +132,6 @@ def update_graph(type):
                 'layout':go.Layout(title=type)}
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(debug=True)
+
 
