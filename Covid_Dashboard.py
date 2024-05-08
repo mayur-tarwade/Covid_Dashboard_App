@@ -17,7 +17,7 @@ external_stylesheets = [
     }
 ]
 # Datasets import:
-patients = pd.read_csv(r'C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\IndividualDetails.csv')
+patients = pd.read_csv('Datasets/IndividualDetails.csv')
 total = patients.shape[0]
 active = patients[patients['current_status']== 'Hospitalized'].shape[0]
 recovered = patients[patients['current_status']== 'Recovered'].shape[0]
@@ -25,8 +25,8 @@ deaths = patients[patients['current_status']== 'Deceased'].shape[0]
 
 D_patients = patients[patients['nationality'] == 'India']
 
-dbd = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\covid_19_india.csv")
-age = pd.read_csv(r"C:\Users\tarwa\OneDrive\Desktop\Data Science\Projects\Dash Applications\Datasets\AgeGroupDetails.csv")
+dbd = pd.read_csv('Datasets/covid_19_india.csv')
+age = pd.read_csv('Datasets/AgeGroupDetails.csv')
 
 options=[
     {'label':'All', 'value':'All'},
@@ -37,7 +37,10 @@ options=[
 
 app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets)
+
 Server = app.server
+
+server = app.server
 
 # Application Layout:
 app.layout=html.Div(children=[
@@ -131,5 +134,5 @@ def update_graph(type):
                 'layout':go.Layout(title=type)}
 
 if __name__ == '__main__':
-    app.run_server(debug=1)
+    app.run_server(debug=True)
 
